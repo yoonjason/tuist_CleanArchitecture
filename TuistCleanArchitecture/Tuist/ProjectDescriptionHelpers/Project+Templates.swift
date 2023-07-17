@@ -17,7 +17,7 @@ extension Project {
         organizationName: String = "YsCompnay",
         packages: [Package] = [],
         deploymentTarget: DeploymentTarget? = .iOS(targetVersion: "14.0", devices: [.iphone]),
-        scheme: Scheme = Scheme(name: "YsCompany", shared: true, buildAction: .buildAction(targets: ["release"]), runAction: .runAction(executable: "release")),
+        schemes: Scheme = Scheme(name: "YsCompany", shared: true, buildAction: .buildAction(targets: ["release"]), runAction: .runAction(executable: "release")),
         dependencies: [TargetDependency] = [],
         sources: SourceFilesList = ["Sources/**"],
         resources: ResourceFileElements? = nil,
@@ -42,7 +42,7 @@ extension Project {
             resources: resources,
             dependencies: dependencies
         )
-
+        
 
         let testTarget = Target(
             name: "\(name)Tests",
@@ -55,9 +55,46 @@ extension Project {
             dependencies: [.target(name: name)]
         )
 
-        let schemes: [Scheme] = [.makeScheme(target: .debug, name: name)]
+        var schemes: [Scheme] = []
 
-        let targets: [Target] = [appTarget, testTarget]
+        var targets: [Target] = []
+        
+        if product == .app { //앱일 경우 타겟과 스킴이 여러개 필요하다. 테스트, 운영,
+            let sandBoxTarget = Target(
+                name: "\(name)-sandbox",
+                platform: platform,
+                product: product,
+                bundleId: "\(organizationName).\(name)-sandbox",
+                deploymentTarget: deploymentTarget,
+                infoPlist: infoPlist,
+                sources: sources,
+                resources: resources,
+                dependencies: dependencies
+            )
+            
+            let cbtTarget = Target(
+                name: "\(name)-cbt",
+                platform: platform,
+                product: product,
+                bundleId: "\(organizationName).\(name)-cbt",
+                deploymentTarget: deploymentTarget,
+                infoPlist: infoPlist,
+                sources: sources,
+                resources: resources,
+                dependencies: dependencies
+            )
+            
+            targets = [appTarget, sandBoxTarget, cbtTarget, testTarget]
+            schemes = [
+                .makeScheme(target: .debug, name: name),
+                .makeScheme(target: .debug, name: "\(name)-sandbox)"),
+                .makeScheme(target: .debug, name: "\(name)-cbt)"),
+            ]
+            
+        }else{
+            targets = [appTarget, testTarget]
+            schemes = [.makeScheme(target: .debug, name: name)]
+        }
 
         return Project(
             name: name,
@@ -76,7 +113,7 @@ extension Project {
 }
 
 extension Scheme {
-    static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
+    static func makeScheme(target: ConfigurationName, product: Product = .staticFramework, name: String) -> Scheme {
         return Scheme(
             name: name,
             shared: true,
@@ -87,9 +124,10 @@ extension Scheme {
                 options: .options(coverage: true, codeCoverageTargets: ["\(name)"])
             ),
             runAction: .runAction(configuration: target),
-            archiveAction: .archiveAction(configuration: target),
+            archiveAction: .archiveAction(configuration: product == .app ? .release : target),
             profileAction: .profileAction(configuration: target),
             analyzeAction: .analyzeAction(configuration: target)
         )
     }
+    
 }
