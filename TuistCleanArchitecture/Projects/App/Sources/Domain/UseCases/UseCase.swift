@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+protocol DoSomethingUseCaseProtocol {
+    func execute ()
+}
+
+final class DoSomethingUseCase: DoSomethingUseCaseProtocol {
+    
+    private let doSomethingRepository: DoSomethingRepositoryProtocol
+    
+    init(
+        doSomethingRepository: DoSomethingRepositoryProtocol
+    ) {
+        self.doSomethingRepository = doSomethingRepository
+    }
+    
+    func execute() {
+        
+    }
+    
+}

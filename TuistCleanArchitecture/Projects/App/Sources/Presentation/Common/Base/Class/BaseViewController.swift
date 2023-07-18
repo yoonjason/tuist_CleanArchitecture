@@ -7,26 +7,32 @@
 //
 
 import UIKit
+import Feature
 
 import RxSwift
+import SnapKit
+import Then
 
-class BaseViewController: UIViewController {
-    
+class BaseViewController: UIViewController, ViewControllable {
+
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupViews()
+        setupLayoutConstraints()
+        bindOutput()
+            .disposed(by: disposeBag)
     }
-    
+
     func setupViews() {
         
     }
-    
+
     func setupLayoutConstraints() {
-        
+
     }
-    
+
     func bindOutput() -> Disposable {
         return Disposables.create()
     }

@@ -24,7 +24,8 @@ let project = Project.makeModelue(
     product: .app,
     dependencies: [
         .Project.Service,
-        .Project.Feature
+        .Project.Feature,
+        .Project.Asset
     ],
     sources: [
         "Application/**",

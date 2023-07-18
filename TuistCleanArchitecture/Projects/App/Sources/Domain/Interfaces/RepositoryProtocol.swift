@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+protocol DoSomethingRepositoryProtocol {
+    
+    func doSomething()
+    
+}

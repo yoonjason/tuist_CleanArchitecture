@@ -14,6 +14,9 @@ let project = Project.makeModelue(
     dependencies: [
         .Project.Service,
     ],
+    sources: [
+        "Sources/**"
+    ],
     resources: [
         "Resources/**"
     ]
