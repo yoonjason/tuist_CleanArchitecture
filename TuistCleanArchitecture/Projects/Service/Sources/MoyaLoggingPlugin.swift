@@ -10,8 +10,11 @@ import Foundation
 
 import Moya
 
-final class MoyaLoggingPlugin: PluginType {
-  func willSend(_ request: RequestType, target: TargetType) {
+public class MoyaLoggingPlugin: PluginType {
+    
+    public init() { }
+    
+    public func willSend(_ request: RequestType, target: TargetType) {
     guard let httpRequest = request.request else {
       print("[HTTP Request] invalid request")
       return
@@ -47,7 +50,7 @@ final class MoyaLoggingPlugin: PluginType {
 //    }
   }
 
-  func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
+    public func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
     switch result {
     case let .success(response):
       onSuceed(response, target: target, isFromError: false)
@@ -56,7 +59,7 @@ final class MoyaLoggingPlugin: PluginType {
     }
   }
 
-  func onSuceed(_ response: Response, target: TargetType, isFromError: Bool) {
+    public func onSuceed(_ response: Response, target: TargetType, isFromError: Bool) {
     let request = response.request
     let url = request?.url?.absoluteString ?? "nil"
     let statusCode = response.statusCode
@@ -88,7 +91,7 @@ final class MoyaLoggingPlugin: PluginType {
 //    }
   }
 
-  func onFail(_ error: MoyaError, target: TargetType) {
+    public func onFail(_ error: MoyaError, target: TargetType) {
     if let response = error.response {
       onSuceed(response, target: target, isFromError: true)
       return

@@ -12,22 +12,24 @@ public extension R { enum Color { } }
 
 public extension R.Color {
 
-    static var red: UIColor { UIColor(named: "Other_First")! }
+    static var red: UIColor { .load(name: "Red") }
+    static var testColor: UIColor { .load(name: "Testcolor") }
 
     struct Accent {
-        static var first: UIColor { .load(name: "Accent_First") }
-        static var second: UIColor { .load(name: "Accent_Second") }
-        static var third: UIColor { .load(name: "Accent_Third") }
+        public static var first: UIColor { .load(name: "Accent_First") }
+        public static var second: UIColor { .load(name: "Accent_Second") }
+        public static var third: UIColor { .load(name: "Accent_Third") }
     }
 
 }
 
-public extension UIColor {
+extension UIColor {
     static func load(name: String) -> UIColor {
-        guard let color = UIColor(named: name, in: R.bundle, compatibleWith: nil) else {
-            assert(true, "\(name) 컬러 로드 실패 \(R.bundle)")
-            return UIColor()
+        guard let color = UIColor(named: name, in: .module, compatibleWith: nil) else {
+//            assert(false, "\(name) Color 로드 실패")
+            return brown
         }
         return color
     }
 }
+

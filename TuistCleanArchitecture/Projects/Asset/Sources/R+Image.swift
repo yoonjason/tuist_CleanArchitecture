@@ -17,9 +17,9 @@ public extension R.Image {
 
 public extension UIImage {
     static func load(name: String) -> UIImage {
-        guard let image = UIImage(named: name, in: R.bundle, compatibleWith: nil) else {
-            print(R.bundle.bundlePath)
-            assert(true, "\(name) 이미지 로드 실패")
+        guard let image = UIImage(named: name, in: .module, compatibleWith: nil) else {
+            print(R.bundle?.bundleIdentifier, R.bundle?.bundlePath)
+            assert(false, "\(name) 이미지 로드 실패")
             return UIImage()
         }
         return image

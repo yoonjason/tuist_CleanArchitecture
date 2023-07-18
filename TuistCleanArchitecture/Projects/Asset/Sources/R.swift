@@ -8,6 +8,8 @@
 import Foundation
 
 public class R {
-    static let bundle = Bundle(for: R.self)
+//    public static let bundle = Bundle(for: R.self)
+    public static let bundle = Bundle(identifier: "YsCompnay.Asset.resources")
+    
 //    Bundle(path: "../Resources/**")
 }

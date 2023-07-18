@@ -28,16 +28,14 @@ class DoSomethingViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = AssetAsset.Colors.accentFirst.color
     }
     
     override func setupViews() {
         super.setupViews()
         
         closeButton.do {
-            $0.setTitle("닫기", for: .normal)
-            $0.backgroundColor = .red
-            $0.titleLabel?.textColor = .black
+            $0.setImage(AssetAsset.Images._24ButtonX.image, for: .normal)
             view.addSubview($0)
         }
     }
