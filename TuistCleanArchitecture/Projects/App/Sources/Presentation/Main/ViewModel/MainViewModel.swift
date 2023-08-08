@@ -26,12 +26,13 @@ extension MainViewModel: ViewModelType {
     struct Input {
         let pushButtonTap: Observable<Void>
         let presentButtonTap: Observable<Void>
-
+        let listButtonTap: Observable<Void>
     }
 
     struct Output {
         let didTapPush: Observable<Void>
         let didTapPresent: Observable<Void>
+        let didTapList: Observable<Void>
     }
 
     func transform(_ input: Input) -> Output {
@@ -48,9 +49,16 @@ extension MainViewModel: ViewModelType {
             self.coordinator.showDoSomethingScene(transitionType: .present)
         })
 
+        let didTapList = input.listButtonTap
+            .do(onNext: { [weak self] in
+            guard let self = self else { return }
+            self.coordinator.showListScene()
+        })
+
         return Output(
             didTapPush: didTapPush,
-            didTapPresent: didTapPresent
+            didTapPresent: didTapPresent,
+            didTapList: didTapList
         )
     }
 

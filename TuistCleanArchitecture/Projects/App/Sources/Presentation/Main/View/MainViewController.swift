@@ -16,6 +16,7 @@ class MainViewController: BaseViewController {
     private let viewModel: MainViewModel
     private let pushButton: UIButton = .init()
     private let presentButton: UIButton = .init()
+    private let listButton: UIButton = .init()
     
     init(
         viewModel: MainViewModel
@@ -31,13 +32,20 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .red
-        
+        self.rx.viewWillAppear
+            .take(1)
+            .subscribe(onNext: {
+                print("이게 되나?")
+            })
+            .disposed(by: disposeBag)
     }
     
     override func bindOutput() -> Disposable {
+        
         let input = MainViewModel.Input(
             pushButtonTap: pushButton.rx.tap.asObservable(),
-            presentButtonTap: presentButton.rx.tap.asObservable()
+            presentButtonTap: presentButton.rx.tap.asObservable(),
+            listButtonTap: listButton.rx.tap.asObservable()
         )
         let output = viewModel.transform(input)
         return Disposables.create([
@@ -45,9 +53,9 @@ class MainViewController: BaseViewController {
         
             Observable.merge(
                 output.didTapPresent,
-                output.didTapPush
-            ).subscribe()
-        
+                output.didTapPush,
+                output.didTapList
+            ).subscribe()    
         ])
     }
     
@@ -70,6 +78,12 @@ class MainViewController: BaseViewController {
             $0.size.equalTo(CGSize(width: 100, height: 100))
             $0.centerX.equalToSuperview()
         }
+        
+        listButton.snp.makeConstraints {
+            $0.top.equalTo(presentButton).offset(100)
+            $0.size.equalTo(CGSize(width: 100, height: 100))
+            $0.centerX.equalToSuperview()
+        }
     }
     
     func setButton() {
@@ -80,6 +94,11 @@ class MainViewController: BaseViewController {
         
         presentButton.do {
             $0.setTitle("present", for: .normal)
+            view.addSubview($0)
+        }
+        
+        listButton.do {
+            $0.setTitle("list", for: .normal)
             view.addSubview($0)
         }
     }

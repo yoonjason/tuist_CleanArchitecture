@@ -10,6 +10,7 @@ import UIKit
 
 protocol MainCoordinating {
     func showDoSomethingScene(transitionType: TransitionType)
+    func showListScene()
 }
 
 final class MainCoordinator: Coordinator {
@@ -43,6 +44,13 @@ extension MainCoordinator: MainCoordinating {
         )
         doSomethingCoordinator.parentCoordinator = self
         doSomethingCoordinator.start()
-        
+    }
+    
+    func showListScene() {
+        let listCoordinator = ImageListCoordinator(
+            navigationController: self.navigationController
+        )
+        listCoordinator.parentCoordinator = self
+        listCoordinator.start()
     }
 }
