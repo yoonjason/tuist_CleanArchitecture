@@ -47,5 +47,9 @@ final class ImageListRepository: ImageListRepositoryProtocol {
     func requestBasicMoel() -> Observable<[SectionOfBasic]> {
         return sections.asObservable()
     }
+    
+    func test() -> Int {
+        return 1
+    }
 
 }

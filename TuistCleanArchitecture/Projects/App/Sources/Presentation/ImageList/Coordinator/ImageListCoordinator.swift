@@ -48,7 +48,9 @@ extension ImageListCoordinator {
             coordinator: self,
             useCase: useCase
         )
-        let viewController = ImageListViewController(viewModel: viewModel)
+        let viewController = ImageListViewController(
+            viewModel: viewModel
+        )
         return viewController
     }
 }

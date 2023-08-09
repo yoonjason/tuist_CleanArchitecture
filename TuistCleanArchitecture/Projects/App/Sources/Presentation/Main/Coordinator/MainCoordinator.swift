@@ -11,6 +11,7 @@ import UIKit
 protocol MainCoordinating {
     func showDoSomethingScene(transitionType: TransitionType)
     func showListScene()
+    func showGridScene()
 }
 
 final class MainCoordinator: Coordinator {
@@ -28,8 +29,15 @@ final class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let viewModel = MainViewModel(coordinator: self)
-        let mainViewController = MainViewController(viewModel: viewModel)
+        let viewModel = MainViewModel(
+            coordinator: self,
+            useCase: MainUseCase(
+                MainRepository: MainRepository()
+            )
+        )
+        let mainViewController = MainViewController(
+            viewModel: viewModel
+        )
         self.mainViewController = mainViewController
         self.navigationController.setViewControllers([mainViewController], animated: false)
     }
@@ -52,5 +60,13 @@ extension MainCoordinator: MainCoordinating {
         )
         listCoordinator.parentCoordinator = self
         listCoordinator.start()
+    }
+    
+    func showGridScene() {
+        let gridCoodrinator = GridCoordinator(
+            navigationController: self.navigationController
+        )
+        gridCoodrinator.parentCoordinator = self
+        gridCoodrinator.start()
     }
 }

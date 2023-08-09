@@ -8,12 +8,7 @@
 
 import UIKit
 
-import RxCocoa
-import RxSwift
-import SnapKit
-import Then
-
-class ImageListCell: UITableViewCell {
+class ImageListCell: BaseTableViewCell {
     
     let titleLabel: UILabel = .init()
 
@@ -33,7 +28,8 @@ class ImageListCell: UITableViewCell {
       fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupViews() {
+    override func setupViews() {
+        super.setupViews()
         titleLabel.do {
             $0.textColor = .gray
             $0.font = UIFont.systemFont(ofSize: 20)
@@ -41,7 +37,8 @@ class ImageListCell: UITableViewCell {
         }
     }
     
-    private func setupLayoutConstraints() {
+    override func setupLayoutConstraints() {
+        super.setupLayoutConstraints()
         titleLabel.snp.makeConstraints {
             $0.centerY.equalTo(self.safeAreaLayoutGuide)
             $0.leading.equalTo(self.snp.leading).offset(20)

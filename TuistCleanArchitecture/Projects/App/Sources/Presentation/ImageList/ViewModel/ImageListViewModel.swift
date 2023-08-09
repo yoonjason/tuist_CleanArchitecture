@@ -31,7 +31,7 @@ final class ImageListViewModel {
 
 extension ImageListViewModel: ViewModelType {
     struct Input {
-        let viewDidAppear: Observable<Void>
+        let viewDidLoad: Observable<Void>
     }
 
     struct Output {
@@ -40,8 +40,6 @@ extension ImageListViewModel: ViewModelType {
 
     func transform(_ input: Input) -> Output {
         
-        
-
         return Output(
             getBasic: self.useCase.getBasic()
         )

@@ -40,7 +40,7 @@ final class ImageListViewController: BaseViewController {
 
     override func bindOutput() -> Disposable {
         let input = ImageListViewModel.Input(
-            viewDidAppear: rx.viewDidLoad.asObservable()
+            viewDidLoad: rx.viewDidLoad.asObservable()
         )
         let output = viewModel.transform(input)
         let dataSource = RxTableViewSectionedAnimatedDataSource<SectionOfBasic> { dataSource, tableView, indexPath, item in
@@ -49,9 +49,20 @@ final class ImageListViewController: BaseViewController {
             return cell
         }
         
+        /**
+         헤더
+         */
         dataSource.titleForHeaderInSection = { dataSource, index in
             return dataSource[index].header
         }
+        
+        /**
+         edit관련
+         
+         dataSource.canEditRowAtIndexPath = { dataSource, index in
+             return true
+         }
+         */
         
         return Disposables.create([
             super.bindOutput(),
