@@ -8,6 +8,17 @@
 
 import Foundation
 
+import RxDataSources
+
 struct Grid {
-    
+    let title: String
 }
+
+extension Grid: IdentifiableType, Equatable {
+    typealias Identity = String
+    
+    var identity: String {
+        title
+    }
+}
+

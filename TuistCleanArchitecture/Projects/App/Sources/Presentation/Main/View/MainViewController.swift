@@ -67,7 +67,9 @@ class MainViewController: BaseViewController {
             viewDidLoad: self.rx.viewDidLoad.asObservable(),
             selectedRow: indexSubject.asObservable()
         )
+        
         let output = viewModel.transform(input)
+        
         return Disposables.create([
             super.bindOutput(),
         

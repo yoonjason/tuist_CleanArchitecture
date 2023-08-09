@@ -51,6 +51,7 @@ extension MainCoordinator: MainCoordinating {
             transitionType: transitionType
         )
         doSomethingCoordinator.parentCoordinator = self
+        self.addChild(doSomethingCoordinator)
         doSomethingCoordinator.start()
     }
     
@@ -59,6 +60,7 @@ extension MainCoordinator: MainCoordinating {
             navigationController: self.navigationController
         )
         listCoordinator.parentCoordinator = self
+        self.addChild(listCoordinator)
         listCoordinator.start()
     }
     
@@ -67,6 +69,7 @@ extension MainCoordinator: MainCoordinating {
             navigationController: self.navigationController
         )
         gridCoodrinator.parentCoordinator = self
+        self.addChild(gridCoodrinator)
         gridCoodrinator.start()
     }
 }
