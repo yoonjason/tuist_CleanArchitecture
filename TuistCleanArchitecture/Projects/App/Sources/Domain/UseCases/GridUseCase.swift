@@ -7,27 +7,34 @@
 
 import Foundation
 
+import RxSwift
 /**
  Domain > UseCases 에 그룹핑합니다.
  */
 
 protocol GridUseCaseProtocol {
     func execute()
+    func getGrid() -> Observable<[SectionOfGrid]>
 }
 
 class GridUseCase: GridUseCaseProtocol
 {
-    private let gridRepository: GridRepositoryProtocol
-    
+    private let gridRepository: any GridRepositoryProtocol
+
     init(
-        GridRepository: GridRepositoryProtocol
-    ){
+        GridRepository: any GridRepositoryProtocol
+    ) {
         self.gridRepository = GridRepository
     }
     
-  func execute()
-  {
-  }
-    
-    
+    func getGrid() -> Observable<[SectionOfGrid]> {
+        debugPrint(#function)
+        return gridRepository.requestGrid()
+    }
+
+    func execute()
+    {
+    }
+
+
 }

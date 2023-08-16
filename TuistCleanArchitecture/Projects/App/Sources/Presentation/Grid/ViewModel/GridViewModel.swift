@@ -37,13 +37,11 @@ extension GridViewModel: ViewModelType {
     }
     
     struct Output {
-        let outputViewDidLoad: Observable<Void>
+        let outputViewDidLoad: Observable<[SectionOfGrid]>
     }
     
     func transform(_ input: Input) -> Output {
-        let outputViewDidLoad = input.viewDidLoad.do(onNext: {
-            print("FFFF")
-        })
+        let outputViewDidLoad = self.useCase.getGrid()
         
         return Output(
             outputViewDidLoad: outputViewDidLoad

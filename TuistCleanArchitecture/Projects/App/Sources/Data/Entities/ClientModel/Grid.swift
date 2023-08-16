@@ -9,6 +9,7 @@
 import Foundation
 
 import RxDataSources
+import Differentiator
 
 struct Grid {
     let title: String
@@ -22,3 +23,17 @@ extension Grid: IdentifiableType, Equatable {
     }
 }
 
+struct SectionOfGrid {
+    var header: String
+    var items: [Grid]
+}
+
+extension SectionOfGrid: SectionModelType {
+    typealias Item = Grid
+    
+    init(original: SectionOfGrid, items: [Grid]) {
+        self = original
+        self.items = items
+    }
+    
+}

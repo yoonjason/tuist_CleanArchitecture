@@ -7,10 +7,14 @@
 
 import Foundation
 
+import RxSwift
+import Differentiator
+
 /**
  Noti: Domain > Interface에 그룹을 분리합니다.
  */
 
-protocol GridRepositoryProtocol {
+protocol GridRepositoryProtocol: AnyObject {
     func doSomeThing()
+    func requestGrid() -> Observable<[SectionOfGrid]>
 }
