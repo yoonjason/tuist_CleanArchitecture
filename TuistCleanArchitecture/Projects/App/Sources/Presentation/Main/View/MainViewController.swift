@@ -42,6 +42,13 @@ class MainViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        let obs = Observable.of(true)
+        
+        rx.myCustom.onNext(true)
+        
+        obs.asDriverSkipError()
+            .drive(rx.myCustom)
+            .disposed(by: disposeBag)
     }
     
     override func bindOutput() -> Disposable {
