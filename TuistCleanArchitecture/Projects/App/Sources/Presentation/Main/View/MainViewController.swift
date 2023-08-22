@@ -11,6 +11,7 @@ import UIKit
 import RxCocoa
 import RxDataSources
 import RxSwift
+import SkeletonView
 
 class MainViewController: BaseViewController {
     
@@ -49,6 +50,10 @@ class MainViewController: BaseViewController {
         obs.asDriverSkipError()
             .drive(rx.myCustom)
             .disposed(by: disposeBag)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func bindOutput() -> Disposable {

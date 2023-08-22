@@ -10,6 +10,7 @@ import UIKit
 
 import RxSwift
 import SnapKit
+import SkeletonView
 import Then
 
 class BaseTableViewCell: UITableViewCell {

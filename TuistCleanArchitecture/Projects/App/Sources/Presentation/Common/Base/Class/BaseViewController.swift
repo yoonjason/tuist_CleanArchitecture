@@ -11,6 +11,7 @@ import Feature
 
 import RxSwift
 import SnapKit
+import SkeletonView
 import Then
 
 class BaseViewController: UIViewController, ViewControllable {

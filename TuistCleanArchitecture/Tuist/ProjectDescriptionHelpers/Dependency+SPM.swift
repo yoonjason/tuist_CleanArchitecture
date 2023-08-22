@@ -19,4 +19,5 @@ public extension TargetDependency.SPM {
     static let RxCocoa = TargetDependency.external(name: "RxCocoa")
     static let SnapKit = TargetDependency.external(name: "SnapKit")
     static let RxDataSources = TargetDependency.external(name: "RxDataSources")
+    static let SkeletonView = TargetDependency.external(name: "SkeletonView")
 }

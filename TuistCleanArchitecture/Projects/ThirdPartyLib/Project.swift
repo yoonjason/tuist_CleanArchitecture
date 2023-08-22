@@ -21,6 +21,7 @@ let project = Project.makeModelue(
         .SPM.RxSwift,
         .SPM.RxCocoa,
         .SPM.SnapKit,
-        .SPM.RxDataSources
+        .SPM.RxDataSources,
+        .SPM.SkeletonView
     ]
 )
