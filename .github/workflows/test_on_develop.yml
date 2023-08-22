@@ -17,10 +17,11 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: macos-latest
     # tuist build를 위한 name 설정인듯
     name: Build
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+    
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,5 +31,3 @@ jobs:
         with:
           command: 'build'
           arguments: ''
-
-
